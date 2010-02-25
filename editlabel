@@ -1,0 +1,35 @@
+#! /bin/sh
+#
+# Script to allow entry and modification of X-Label entries
+#
+# $Id: $
+
+error() {
+  echo $*
+  exit 1
+}
+
+# Make sure the filename doesn't contain extra folder elements
+# Based on comments at
+# http://mybin.repository.steve.org.uk/?raw-file/tip/editlabel
+fixup() {
+    local file=${*/\/new\/new\//\/new\/}
+    echo ${file/\/cur\/cur\//\/cur\/}
+}
+
+for f in $*; do
+    msg=$(fixup $f)
+#    echo $msg
+    [ -e "${msg}" ] || error "$0: the file ${msg} does not exist"
+    msgNew=$(mktemp -t `basename ${msg}`.XXXX)
+    tags=$(formail -cxX-Label: < $msg)
+    [ -n "${tags}" ] && echo "Existing tags: $tags"
+    read -e -p "Enter tags: " entries
+    if [ "xxxxxx" == "xxx${entries}xxx" ]; then
+	    formail -I "X-Label:" < "${msg}" > "${msgNew}"
+    else
+	    formail -I "X-Label: $entries" < "${msg}" > "${msgNew}"
+    fi
+    [ -f "${msgNew}" ] && mv "${msgNew}" "${msg}"
+done
+exit 0

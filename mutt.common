@@ -1,0 +1,282 @@
+# -*- mode: muttrc;-*-
+# Common options for all accounts
+# $Id: $
+
+# Do not abort mail with no subject or which is unmodified
+set abort_nosubject=no 
+set abort_unmodified=no
+
+# Where are my aliases?
+set alias_file=~/.mutt/.aliases
+source $alias_file
+
+# Don't convert outgoing mail to quoted printable or base64
+set allow_8bit
+
+# Recognise me in mails
+alternates "(boycie|memes)@boycie\.net|memes@((cyberlease|romelonline|home|mercuryinsurance|matthewemes|aaxisgroup)\.com|romel\.biz|stanford\.edu|cpan\.org)|mjemes@gmail\.com$"
+
+# Thus spake wossisname
+set attribution="On %d, %n wrote:"
+
+# We don't need no stinking beeping
+unset beep
+unset beep_new
+
+# Keep certificates in a known place
+set certificate_file=~/.mutt/.mutt_certificates
+
+# Check for new messages
+set check_new
+
+# Don't ask me about appending to existing folders
+unset confirmappend
+
+# Keep a copy of outgoing messages
+set copy=yes
+
+# Prompt to really delete messages
+set delete=ask-yes
+set my_delete=$delete
+
+# Let me edit the headers of outgoing messages
+set edit_headers
+
+# Use emacs for outgoing messages (Gnuclient when possible)
+set my_editor="sh -c 'set | grep -q DISPLAY; [ $? -eq 0 ] && gnuclient $0 || emacs -nw $0'"
+set editor=$my_editor
+
+# Make sure the outgoing messages appear to come from the address I want
+set envelope_from
+
+# Don't prompt for recipients or subject when replying
+set fast_reply
+
+# When I reply to lists set the Mail-Followup-To field, and honour any existing
+# Mail-Followup-To field
+set followup_to
+set honor_followup_to=yes
+
+# Forward messages configuration
+set forward_format="Fwd: %s"
+set mime_forward=ask-yes
+
+# Show headers in this order, ignore certain headers
+set hdrs
+ignore *
+unignore To: From: Reply-To: Mail-Followup-To: Subject: Date: Organization:
+unignore Newsgroups: CC: BCC: Message-ID: X-Mailer: User-Agent: Delivery-Date:
+unignore X-Label:
+hdr_order From: To: Reply-To: Mail-Followup-To: CC: BCC: Date: Subject: Delivery-Date: Organization: Message-ID: X-Mailer: User-Agent: X-Label:
+
+# Include the original message as part of any reply
+set include=yes
+
+# How should mail box indexes be displayed
+#set index_format="%4C %Z %{%b %d} %-15.15L (%4c) %s"
+set index_format="%4C %Z %{%b %d} %-15.15L %?M?(#%03M)&(%4l)? %?Y?{%.20Y} ?%s"
+
+# Do not mark old unread messages as old, leave them as new!
+unset mark_old
+
+# Wrapping: Do not put '+' in wrapped lines, but wrap at word boundaries where
+# possible
+unset markers
+set smart_wrap
+
+# Do not offer to move files from spool
+unset move
+
+# Update indicators every 50K or 25 msgs
+set net_inc=50
+set read_inc=25
+set write_inc=25
+
+# When paging, move to next message at end of current message
+unset pager_stop
+
+# Save postponed messages?
+set postpone=ask-yes
+
+# Ask before printing (assume yes), and print using muttprint, separate
+# invocation for each message
+set print=ask-yes
+set print_command="a2ps -1gEmail --borders=no --strip=3"
+set print_split
+macro index,pager p "<display-toggle-weed><print-message><display-toggle-weed>" "Print"
+
+# Perform queries against BBDB via LBDB
+set query_command="lbdbq '%s'"
+
+# Just quit when asked
+set quit=yes
+
+# Default realname
+set realname="Matthew Emes"
+
+# Prevent -- separating body and sig
+set sig_dashes=no
+
+# Sort messages into threads, subsorted by date sent
+set sort=threads
+set sort_aux=last-date-sent
+
+# Don't allow suspension of mutt
+unset suspend
+
+# Don't wait for a keypress after spawning external programs unless a non-zero
+# result is returned
+unset wait_key
+
+# Sane message type ordering, don't want html if possible
+alternative_order text/enriched text/plain text/html
+auto_view text/html
+
+# Handle stupid octet-stream attachments
+mime_lookup application/octet-stream application/binary
+
+# key bindings
+bind pager <up> previous-line
+bind pager <down> next-line
+bind pager <pageup> previous-page
+bind pager <pagedown> next-page
+
+#--- Color settings
+color normal    white black
+color indicator cyan black
+color status	brightyellow black
+color header    brightyellow black ^Date:
+color header    brightred black ^From:
+color header    brightgreen black ^To:
+color header    brightgreen black ^Reply-To:
+color header    brightgreen black ^Cc:
+color header    brightwhite black ^Subject:
+color header	brightwhite black ^X-Label:
+color hdrdefault green black
+color body      brightred black [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+color body      brightblue black (http|ftp)://[\-\.\,/%~_:?\#a-zA-Z0-9]+
+color body      brightyellow black ^gpg2?:
+color quoted    cyan black
+color attachment brightmagenta black
+color signature green black
+color markers   brightred black
+color tree      brightgreen black
+
+# Prefer PGP to S/MIME
+unset smime_is_default
+
+# automatically encrypt reply if message is crypted
+set crypt_replyencrypt=yes
+set crypt_replysign=yes
+set crypt_replysignencrypted=yes
+set crypt_verify_sig=yes
+
+# Command formats for gpg.
+# 
+# %p    The empty string when no passphrase is needed,
+#       the string "PGPPASSFD=0" if one is needed.
+#
+#       This is mostly used in conditional % sequences.
+#
+# %f    Most PGP commands operate on a single file or a file
+#       containing a message.  %f expands to this file's name.
+#
+# %s    When verifying signatures, there is another temporary file
+#       containing the detached signature.  %s expands to this
+#       file's name.
+#
+# %a    In "signing" contexts, this expands to the value of the
+#       configuration variable $pgp_sign_as.  You probably need to
+#       use this within a conditional % sequence.
+#
+# %r    In many contexts, mutt passes key IDs to pgp.  %r expands to
+#       a list of key IDs.
+# Note that we explicitly set the comment armor header since GnuPG, when used
+# in some localiaztion environments, generates 8bit data in that header,
+# thereby breaking PGP/MIME.
+# decode application/pgp
+set pgp_decode_command="gpg2 %?p?--passphrase-fd 0? --no-verbose --quiet  --batch  --output - %f"
+# verify a pgp/mime signature
+set pgp_verify_command="gpg2 --no-verbose --quiet  --batch  --output - --verify %s %f"
+# decrypt a pgp/mime attachment
+set pgp_decrypt_command="gpg2 %?p?--passphrase-fd 0? --no-verbose --quiet --batch --output - %f"
+# create a pgp/mime signed attachment
+set pgp_sign_command="gpg2 --no-verbose --batch --quiet --output - %?p?--passphrase-fd 0? --armor --detach-sign --textmode %?a?-u %a? %f"
+# create a application/pgp signed (old-style) message
+set pgp_clearsign_command="gpg2 --no-verbose --batch --quiet --output - %?p?--passphrase-fd 0? --armor --textmode --clearsign %?a?-u %a? %f"
+# create a pgp/mime encrypted attachment
+set pgp_encrypt_only_command="/usr/lib/mutt/pgpewrap gpg2 %?p?--passphrase-fd 0? --no-verbose --quiet --batch --output - --encrypt --textmode --armor --always-trust -- -r %r -- %f"
+# create a pgp/mime encrypted and signed attachment
+set pgp_encrypt_sign_command="/usr/lib/mutt/pgpewrap gpg2 %?p?--passphrase-fd 0?  --batch --quiet  --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust -- -r %r -- %f"
+# import a key into the public key ring
+set pgp_import_command="gpg2 --no-verbose --import -v %f"
+# export a key from the public key ring
+set pgp_export_command="gpg2 --no-verbose --export --armor %r"
+# verify a key
+set pgp_verify_key_command="gpg2 --verbose --batch --fingerprint --check-sigs %r"
+# read in the public key ring
+set pgp_list_pubring_command="gpg2 --no-verbose --batch --quiet --with-colons --list-keys %r" 
+# read in the secret key ring
+set pgp_list_secring_command="gpg2 --no-verbose --batch --quiet --with-colons --list-secret-keys %r" 
+# pattern for good signature - may need to be adapted to locale!
+set pgp_good_sign="^gpg2?: Good signature from"
+
+# Other PGP settings
+set pgp_show_unusable=yes
+set pgp_use_gpg_agent=yes
+set pgp_sign_as="E1ADCDE1"
+
+# Use my Thawte certificate as S/MIME identity
+set smime_default_key="7c75d636.0"
+
+# Timeout passphrase after 5 minutes
+set smime_timeout=300
+
+# Use TripleDES for outgoing S/MIME
+set smime_encrypt_with="des3"
+
+# Where to store local S/MIME keys and certs
+set smime_keys="~/.smime/keys"
+set smime_certificates="~/.smime/certificates"
+
+# Global CA list
+set smime_ca_location="/etc/ssl/certs"
+
+# S/MIME decryption command
+set smime_decrypt_command="openssl smime -decrypt -passin stdin -inform DER -in %f -inkey %k -recip %c"
+
+# S/MIME verify command
+set smime_verify_command="openssl smime -verify -inform DER -in %s %C -content %f"
+
+# S/MIME verify signature command
+set smime_verify_opaque_command="openssl smime -verify -inform DER -in %s %C || openssl smime -verify -inform DER -in %s -noverify 2>/dev/null"
+
+# S/MIME sign command
+set smime_sign_command="openssl smime -sign -signer %c -inkey %k -passin stdin -in %f -certfile %i -outform DER"
+
+# Disable opaque S/MIME signing
+unset smime_sign_opaque_command
+
+# S/MIME encrypt command
+set smime_encrypt_command="openssl smime -encrypt -%a -outform DER -in %f %c"
+
+# Extract PKCS7 S/MIME signature
+set smime_pk7out_command="openssl smime -verify -in %f -noverify -pk7out"
+
+# Extract X509 from S/MIME
+set smime_get_cert_command="openssl pkcs7 -print_certs -in %f"
+
+# Extract the S/MIME signers X509 certificate
+set smime_get_signer_cert_command="openssl smime -verify -in %f -noverify -signer %c -out /dev/null"
+
+# Import a S/MIME certificate to local store
+set smime_import_cert_command="smime_keys add_cert %f"
+
+# Extract email address of S/MIME certificate
+set smime_get_cert_email_command="openssl x509 -in  %f -noout -email"
+
+# Take me to the next unread message after marking thread as read
+macro index,pager \Cr "<read-thread><next-unread><display-message>" "Mark thread as read"
+
+# Common send hooks
+send-hook . 'my_hdr X-Now-Playing: `test -x ~/bin/now_playing && ~/bin/now_playing`'

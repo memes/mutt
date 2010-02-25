@@ -1,0 +1,14 @@
+# -*- mode: muttrc;-*-
+# Revert custom macros
+# $Id: $
+
+macro pager \Cf noop "Does nothing"
+macro index \Cf noop "Does nothing"
+macro index <esc>l noop "Does nothing"
+macro pager <esc>l noop "Does nothing"
+macro index <esc>a noop "Does nothing"
+macro pager <esc>a noop "Does nothing"
+macro index <esc>f noop "Does nothing"
+macro pager <esc>f noop "Does nothing"
+macro index <esc>w noop "Does nothing"
+macro pager <esc>w noop "Does nothing"

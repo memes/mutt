@@ -1,0 +1,23 @@
+# -*- mode: muttrc;-*-
+# Setup mutt
+# $Id: $
+
+# Determine host
+set my_host=`hostname`
+
+# Load common settings
+source ~/.mutt/mutt.common
+
+# Load this host settings
+source ~/.mutt/mutt.$my_host
+
+# Reload local settings if folder is not imap
+folder-hook !^imaps 'source ~/.mutt/mutt.$my_host'
+ 
+# Handle different accounts
+account-hook . 'unset header_cache preconnect imap_check_subscribed imap_list_subscribed imap_user imap_pass imap_authenticators smtp_authenticators smtp_pass smtp_url signature from'
+account-hook imaps://boycie@boycie.net 'source ~/.mutt/mutt.boycie@boycie.net'
+account-hook imaps://memes@boycie.net 'source ~/.mutt/mutt.memes@boycie.net'
+account-hook imaps://memes@matthewemes.com 'source ~/.mutt/mutt.memes@matthewemes.com'
+account-hook imaps://imap.gmail.com 'source ~/.mutt/mutt.gmail'
+account-hook imaps://secure.emailsrvr.com 'source ~/.mutt/mutt.aaxis.imap'

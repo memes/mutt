@@ -1,0 +1,43 @@
+# -*- mode: muttrc;-*-
+# MEmes mutt specifics for blofeld local mail
+# $Id: $
+
+# do not cache
+unset header_cache message_cachedir
+
+# reset any IMAP settings
+unset imap_authenticators imap_pass imap_user imap_check_subscribed imap_list_subscribed 
+
+# reset any SMTP settings
+unset smtp_authenticators smtp_pass smtp_url
+
+# Local mail dirs
+set folder=~/Mail
+set mbox=~/Mail/inbox/
+set mbox_type=Maildir
+set spoolfile=~/Mail/inbox/
+set record=+_local_sent
+unset maildir_trash
+
+# Default from field
+set from="memes@aaxisgroup.com"
+
+# Default headers to add
+set hdrs
+my_hdr From: memes@aaxisgroup.com
+my_hdr Reply-To: memes@aaxisgroup.com
+
+# Save postponed messages to drafts
+set postponed=+drafts
+
+# Mailboxes: all maildirs under ~/Mail
+mailboxes `find ~/Mail/ -mindepth 1 -type d | egrep -v '/(cur|tmp|new)' | sh -c 'while read d; do echo -n "$d "; done;'` /var/mail/memes
+
+# Send hooks
+send-hook . 'set signature="~/.mutt/aaxis.sig"'
+
+# Fcc hooks, default to _local_sent folder
+fcc-save-hook . =_local_sent
+
+# Load custom macros
+source ~/.mutt/mutt.macros

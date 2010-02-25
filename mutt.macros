@@ -1,0 +1,17 @@
+# -*- mode: muttrc;-*-
+# Custom macros
+# $Id: $
+
+# Mairix bindings
+macro pager \Cf "<change-folder-readonly>=_results\n<shell-escape>mairix -t " "Search all mails"
+macro index \Cf "<change-folder-readonly>=_results\n<shell-escape>mairix -t " "Search all mails"
+
+# Labelling/tagging of emails
+macro index <esc>l "<enter-command>set editor=\"~/.mutt/editlabel.pl\"<enter><tag-prefix><edit><tag-pattern>~N<enter><tag-prefix><clear-flag>N<enter-command>set editor=\"$my_editor\"<enter><enter-command>set delete=\"$my_delete\"<enter>" "Label message"
+macro pager <esc>l "<enter-command>set editor=\"~/.mutt/editlabel.pl\"<enter><edit><next-entry><clear-flag>N<enter-command>set editor=\"$my_editor\"<enter>" "Label message"
+macro index <esc>a "<enter-command>set delete=\"yes\"<enter><tag-prefix><save-message>=archive<enter><sync-mailbox><enter-command>set delete=\"$my_delete\"<enter>" "Archive message"
+macro pager <esc>a "<enter-command>set delete=\"yes\"<enter><save-message>=archive<enter><sync-mailbox><enter-command>set delete=\"$my_delete\"<enter>" "Archive message"
+macro index <esc>f "<enter-command>set delete=\"yes\"<enter><tag-prefix><save-message>=followup<enter><sync-mailbox><enter-command>set delete=\"$my_delete\"<enter><enter-command>set delete=\"$my_delete\"<enter>" "Save as follow-up"
+macro pager <esc>f "<enter-command>set delete=\"yes\"<enter><save-message>=followup<enter><sync-mailbox><enter-command>set delete=\"$my_delete\"<enter><enter-command>set delete=\"$my_delete\"<enter>" "Save as follow-up"
+macro index <esc>w "<enter-command>set delete=\"yes\"<enter><tag-prefix><save-message>=waiting<enter><sync-mailbox><enter-command>set delete=\"$my_delete\"<enter><enter-command>set delete=\"$my_delete\"<enter>" "Waiting for response"
+macro pager <esc>w "<enter-command>set delete=\"yes\"<enter><save-message>=waiting<enter><sync-mailbox><enter-command>set delete=\"$my_delete\"<enter><enter-command>set delete=\"$my_delete\"<enter>" "Waiting for response"

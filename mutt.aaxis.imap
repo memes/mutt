@@ -1,0 +1,33 @@
+# -*- mode: muttrc;-*-
+# MEmes mutt IMAP configuration for Aaxis
+# $Id: $
+
+set signature="~/.mutt/aaxis.sig"
+set realname="Matthew Emes"
+set from="memes@aaxisgroup.com"
+my_hdr From: memes@aaxisgroup.com
+my_hdr Reply-To: memes@aaxisgroup.com
+
+# IMAP configuration for Postoffice
+set imap_user="memes@aaxisgroup.com"
+set mail_check=90
+set timeout=15
+set imap_check_subscribed
+unset imap_list_subscribed
+set folder=imaps://memes@aaxisgroup.com@secure.emailsrvr.com:993
+set spoolfile=+INBOX
+set record=+INBOX
+set postponed=+INBOX/Drafts
+mailboxes +INBOX
+
+# Cache settings
+set header_cache="~/.mutt/cache"
+
+# SMTP configuration
+set smtp_url="smtp://memes@aaxisgroup.com@securemail.aaxisgroup.com:587"
+
+# Send hooks
+send-hook . 'set signature="~/.mutt/aaxis.sig"'
+
+# Remove the custom macros
+source ~/.mutt/mutt.unmacros
