@@ -1,4 +1,2 @@
-Regards,
-
 Matthew Emes
-Cell: +19492905024
++1-949-281-6774

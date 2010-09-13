@@ -98,7 +98,7 @@ unset pager_stop
 # Save postponed messages?
 set postpone=ask-yes
 
-# Ask before printing (assume yes), and print using muttprint, separate
+# Ask before printing (assume yes), and print using a2ps, separate
 # invocation for each message
 set print=ask-yes
 set print_command="a2ps -1gEmail --borders=no --strip=3"
@@ -114,8 +114,8 @@ set quit=yes
 # Default realname
 set realname="Matthew Emes"
 
-# Prevent -- separating body and sig
-set sig_dashes=no
+# include -- separating body and sig
+set sig_dashes=yes
 
 # Sort messages into threads, subsorted by date sent
 set sort=threads
@@ -279,4 +279,4 @@ set smime_get_cert_email_command="openssl x509 -in  %f -noout -email"
 macro index,pager \Cr "<read-thread><next-unread><display-message>" "Mark thread as read"
 
 # Common send hooks
-send-hook . 'my_hdr X-Now-Playing: `test -x ~/bin/now_playing && ~/bin/now_playing`'
+#send-hook . 'my_hdr X-Now-Playing: `test -x ~/bin/now_playing && ~/bin/now_playing`'

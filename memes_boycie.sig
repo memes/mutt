@@ -1,3 +1,1 @@
-Regards,
-
 Matthew Emes

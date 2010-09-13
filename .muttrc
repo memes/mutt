@@ -19,5 +19,5 @@ account-hook . 'unset header_cache preconnect imap_check_subscribed imap_list_su
 account-hook imaps://boycie@boycie.net 'source ~/.mutt/mutt.boycie@boycie.net'
 account-hook imaps://memes@boycie.net 'source ~/.mutt/mutt.memes@boycie.net'
 account-hook imaps://memes@matthewemes.com 'source ~/.mutt/mutt.memes@matthewemes.com'
-account-hook imaps://imap.gmail.com 'source ~/.mutt/mutt.gmail'
-account-hook imaps://secure.emailsrvr.com 'source ~/.mutt/mutt.aaxis.imap'
+account-hook imaps://mjemes@gmail.com 'source ~/.mutt/mutt.gmail'
+account-hook imaps://memes@aaxisgroup.com 'source ~/.mutt/mutt.aaxis.imap'
