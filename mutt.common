@@ -43,7 +43,7 @@ set my_delete=$delete
 set edit_headers
 
 # Use emacs for outgoing messages (Gnuclient when possible)
-set my_editor="sh -c 'set | grep -q DISPLAY; [ $? -eq 0 ] && gnuclient $0 || emacs -nw $0'"
+set my_editor="sh -c 'set | grep -q DISPLAY; [ $? -eq 0 ] && emacsclient -c $0 || emacs -nw $0'"
 set editor=$my_editor
 
 # Make sure the outgoing messages appear to come from the address I want
